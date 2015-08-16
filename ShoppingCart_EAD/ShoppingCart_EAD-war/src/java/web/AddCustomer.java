@@ -32,7 +32,7 @@ public class AddCustomer extends HttpServlet {
     private ConnectionFactory connectionFactory;
     @Resource(mappedName = "jms/Message")
     private Queue queue;
-
+    String manage;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -50,6 +50,7 @@ public class AddCustomer extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String contact = request.getParameter("contact");
+        manage=(String)request.getSession().getAttribute("manage");
         if ((id != null) && (name != null) && (address != null) && (contact != null)) {
             try {
                 Connection connection = connectionFactory.createConnection();
@@ -80,16 +81,24 @@ public class AddCustomer extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             out.println("<html>");
             out.println("<head>");
+            out.println("<style>body {background-color: #d0e4fe;} "
+                    + "p {font-family: \"Times New Roman\"; font-size: 20px; }"
+                    + ".mytext { height: 30px;}"
+                    + " </style> ");
             out.println("<title>Servlet AddCustomer</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCustomer at " + request.getContextPath() + "</h1>");
+            //out.println("<h1>Servlet AddCustomer at " + request.getContextPath() + "</h1>");
             out.println("<form>");
-            out.println("ID: <input type='text' name='id'><br/>");
-            out.println("Name: <input type='text' name='name'><br/>");
-            out.println("Address: <textarea name='address'></textarea><br/>");
-            out.println("Contact: <input type='text' name='contact'><br/>");
-            out.println("<input type='submit'><br/>");
+            out.println("Customer ID:<br> <input type='text' name='id' class='mytext' style='width: 300px;'>");
+            out.println("<br><br>");
+            out.println("Name:<br> <input type='text' name='name'class='mytext' style='width: 320px;'><br/>");
+            out.println("<br><br>");
+            out.println("Address:<br> <textarea name='address' rows='4' cols='35'></textarea><br/>");
+            out.println("<br><br>");
+            out.println("Contact:<br> <input type='text' name='contact'class='mytext' style='width: 300px;'><br/>");
+            out.println("<br><br><br>");
+            out.println("<input type='submit' value="+manage+" class='mytext'><br/>");
             out.println("</form>");
             out.println("</body>");
             out.println("</html>");
