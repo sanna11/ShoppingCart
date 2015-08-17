@@ -76,8 +76,8 @@ public class ListCustomers extends HttpServlet {
             for (Iterator it = customers.iterator(); it.hasNext();) {
                 CustomerEntity elem = (CustomerEntity) it.next();
                 out.println("<tr>");
-                out.println("<td><a href=\"\">Update</a></td>");
-                out.println("<td><a href=\"\">Remove</a></td>");
+                out.println("<td><a href=\"/ShoppingCart_EAD-war/UpdateCustomer?id="+elem.getCustomerId()+"\">Update</a></td>");
+                out.println("<td><a href=\"/ShoppingCart_EAD-war/UpdateCustomer?id="+elem.getCustomerId()+"&action=Delete+Customer\">Remove</a></td>");
                 out.println("<td>"+elem.getCustomerId()+"</td>");
                 out.println("<td>"+elem.getName()+"</td>");
                 out.println("<td>"+elem.getAddress()+"</td>");
