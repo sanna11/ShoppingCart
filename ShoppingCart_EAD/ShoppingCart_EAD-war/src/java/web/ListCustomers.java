@@ -76,7 +76,7 @@ public class ListCustomers extends HttpServlet {
 ////                out.println(elem.getName() + "<br /> ");
             }
             out.println("</table>");
-            out.println("<br><a href='AddCustomer' onclick='myJavaScriptFunction();>Add new Customer</a>");
+            out.println("<br><a href='AddCustomer'>Add new Customer</a>");
 
             out.println("<br>");
             out.println(sessionManagerBean.getActiveSessionsCount() + " user(s) reading the news.");

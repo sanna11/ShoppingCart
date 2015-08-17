@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 /**
  *
  * @author Sanna
@@ -32,7 +34,7 @@ public class AddCustomer extends HttpServlet {
     private ConnectionFactory connectionFactory;
     @Resource(mappedName = "jms/Message")
     private Queue queue;
-    String manage;
+//    String manage;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -50,7 +52,7 @@ public class AddCustomer extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String contact = request.getParameter("contact");
-        manage=(String)request.getSession().getAttribute("manage");
+//        manage=(String)request.getSession().getAttribute("manage");
         if ((id != null) && (name != null) && (address != null) && (contact != null)) {
             try {
                 Connection connection = connectionFactory.createConnection();
@@ -90,15 +92,15 @@ public class AddCustomer extends HttpServlet {
             out.println("<body>");
             //out.println("<h1>Servlet AddCustomer at " + request.getContextPath() + "</h1>");
             out.println("<form>");
-            out.println("Customer ID:<br> <input type='text' name='id' class='mytext' style='width: 300px;'>");
+            out.println("Customer ID:<br> <input type='text' name='id' class='mytext'>");
             out.println("<br><br>");
-            out.println("Name:<br> <input type='text' name='name'class='mytext' style='width: 320px;'><br/>");
+            out.println("Name:<br> <input type='text' name='name'class='mytext'><br>");
             out.println("<br><br>");
-            out.println("Address:<br> <textarea name='address' rows='4' cols='35'></textarea><br/>");
+            out.println("Address:<br> <textarea name='address' rows='4' cols='35'></textarea><br>");
             out.println("<br><br>");
-            out.println("Contact:<br> <input type='text' name='contact'class='mytext' style='width: 300px;'><br/>");
+            out.println("Contact:<br> <input type='text' name='contact'class='mytext'><br>");
             out.println("<br><br><br>");
-            out.println("<input type='submit' value="+manage+" class='mytext'><br/>");
+            out.println("<input type='submit' value='Add New Customer' class='mytext'><br>");
             out.println("</form>");
             out.println("</body>");
             out.println("</html>");
