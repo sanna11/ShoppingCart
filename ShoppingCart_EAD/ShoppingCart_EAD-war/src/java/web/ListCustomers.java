@@ -54,13 +54,23 @@ public class ListCustomers extends HttpServlet {
             out.println("<title>Servlet ListCustomers</title>");
             out.println("<style> "
                     + "table, th, td {  border: 1px solid black;}"
-                    + "th, td { padding: 5px; text-align: left; }"
+                    + "th, td { padding: 5px; text-align: left; } "
                     + "</style>");
+            out.println("<script src=\"http://code.jquery.com/jquery-1.9.1.min.js\"></script>");
+            out.println("<script>");
+            out.println(" $(document).ready(function(){ "
+                    + "$(\"#myTable td\").click(function() {"
+                    + " var column_num = parseInt( $(this).index() ) + 1;"
+                    + "var row_num = parseInt( $(this).parent().index() )+1; "
+                    + "$(\"#result\").html( \"Row_num =\" + row_num + \"  ,  Rolumn_num =\"+ column_num );  "
+                    + "});  "
+                    + "});");
+            out.println("</script>");
             out.println("</head>");
             out.println("<body>");
             //out.println("<h1>Servlet ListCustomers at " + request.getContextPath() + "</h1>");
             List customers = customerEntityFacade.findAll();
-            out.println("<table style=\"width:100%\">");
+            out.println("<table id=\"myTable\" border=\"1\" style=\"border-collapse: collapse;\" cellpadding=\"8\">");
             out.println("<tr><th></th><th></th><th>CustomerId</th>"
                         + "<th>Name</th><th>Address</th><th>Conatct</th></tr>");
             for (Iterator it = customers.iterator(); it.hasNext();) {
