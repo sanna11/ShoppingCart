@@ -56,7 +56,7 @@ public class UpdateCustomer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String uri = request.getQueryString();
-        String id = uri.substring(uri.indexOf("=") + 1);
+        String id = request.getParameter("id");
         List customers = customerEntityFacade.findAll();
         String pname, pcontact, paddress;
         for (Object object : customers) {
