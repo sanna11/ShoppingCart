@@ -66,6 +66,7 @@ public class UpdateCustomer extends HttpServlet {
                 break;
             }
         }
+//        updatingCustomer=customerEntityFacade.findCust(id);
         if (updatingCustomer == null) {
             response.sendRedirect("ListCustomers");
         }

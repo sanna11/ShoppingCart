@@ -17,27 +17,19 @@ import javax.persistence.Id;
 @Entity
 public class CustomerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     
+    @Id    
     private String customerId;
     private String name;
     private String address;
     private String contact;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+   
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (customerId != null ? customerId.hashCode() : 0);
         return hash;
     }
 
@@ -48,7 +40,7 @@ public class CustomerEntity implements Serializable {
             return false;
         }
         CustomerEntity other = (CustomerEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
             return false;
         }
         return true;
@@ -56,7 +48,7 @@ public class CustomerEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.CustomerEntity[ id=" + id + " ]";
+        return "ejb.CustomerEntity[ id=" + customerId + " ]";
     }
 
     public String getCustomerId() {
