@@ -4,6 +4,7 @@
  */
 package ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +25,20 @@ public class CustomerOrderEntityFacade extends AbstractFacade<CustomerOrderEntit
 
     public CustomerOrderEntityFacade() {
         super(CustomerOrderEntity.class);
+    }
+    
+    public CustomerOrderEntity findCustOrder(String OrderNo)
+    {
+        List customerOrders = findAll();
+        CustomerOrderEntity custOrder = null;
+        for (Object object : customerOrders) {
+            CustomerOrderEntity customerOrder = (CustomerOrderEntity) object;
+            if (customerOrder.getOrderNo().equals(OrderNo)) {
+                custOrder = customerOrder;
+                break;
+            }
+        }
+        return custOrder;
     }
     
 }

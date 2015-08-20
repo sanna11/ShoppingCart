@@ -44,7 +44,7 @@ public class ListCustomerOrders extends HttpServlet {
         try {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListCustomers</title>");
+            out.println("<title>List Customers</title>");
             out.println("<style> "
                     + "table, th, td {  border: 1px solid black;}"
                     + "th, td { padding: 5px; text-align: left; } "
@@ -69,7 +69,8 @@ public class ListCustomerOrders extends HttpServlet {
             for (Iterator it = customerOrders.iterator(); it.hasNext();) {
                 CustomerOrderEntity elem = (CustomerOrderEntity) it.next();
                 out.println("<tr>");
-                out.println("<td><a href=\"/ShoppingCart_EAD-war/UpdateCustomer?id="+elem.getOrderNo()+"\">Update</a></td>");
+                out.println("<td><a href=\"/ShoppingCart_EAD-war/UpdateCustomerOrder?orderno="+elem.getOrderNo()+"\">Update</a></td>");
+                out.println("<td><a href=\"/ShoppingCart_EAD-war/ViewCustomerOrder?orderno="+elem.getOrderNo()+"\">"+elem.getOrderNo()+"</a></td>");
                 out.println("<td>"+elem.getCustomer().getCustomerId()+"</td>");
                 out.println("<td>"+elem.getCustomer().getName()+"</td>");
                 out.println("<td>"+elem.getPrice()+"</td>");

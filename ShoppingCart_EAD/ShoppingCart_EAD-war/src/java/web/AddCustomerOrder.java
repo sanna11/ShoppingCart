@@ -11,6 +11,7 @@ import ejb.CustomerOrderEntityFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.jms.Connection;
@@ -67,20 +68,30 @@ public class AddCustomerOrder extends HttpServlet {
 //                MessageProducer messageProducer =
 //                        session.createProducer(queue);
 //                ObjectMessage message = session.createObjectMessage();
-                CustomerOrderEntity custOrder = new CustomerOrderEntity();
-                CustomerEntity customer = customerEntityFacade.findCust(cid);
-                if (customer != null) {
-                    custOrder.setCustomer(customer);
-                    custOrder.setOrderNo(OrderNo);
-                    custOrder.setDuedate(new Date(duedate));
-                    custOrder.setComment(comments);
+            CustomerOrderEntity custOrder = new CustomerOrderEntity();
+            CustomerEntity customer = null;
+//                CustomerEntity customer = customerEntityFacade.findCust(cid);
+            List customers = customerEntityFacade.findAll();
+            String pname, pcontact, paddress;
+            for (Object object : customers) {
+                CustomerEntity cust = (CustomerEntity) object;
+                if (cust.getCustomerId().equals(cid)) {
+                    customer = cust;
+                    break;
+                }
+            }
+            if (customer != null) {
+                custOrder.setCustomer(customer);
+                custOrder.setOrderNo(OrderNo);
+                custOrder.setDuedate(new Date(duedate));
+                custOrder.setComment(comments);
 //                    message.setObject(custOrder);
 //                    messageProducer.send(message);
 //                    messageProducer.close();
 //                    connection.close();
-                    customerEntityFacade.create(e);
-                    response.sendRedirect("ListCustomerOrders");
-                }
+                customerOrderEntityFacade.create(custOrder);
+                response.sendRedirect("ListCustomerOrders");
+            }
 //            } catch (JMSException ex) {
 //                ex.printStackTrace();
 //            }
@@ -110,7 +121,7 @@ public class AddCustomerOrder extends HttpServlet {
             out.println("<br><br>");
             out.println("Comments:<br> <textarea name='comment' rows='4' cols='35'></textarea><br>");
             out.println("<br><br><br>");
-            out.println("<input type='submit' value='Add New Customer' class='mytext'><br>");
+            out.println("<input type='submit' value='Add New Customer Order' class='mytext'><br>");
             out.println("</form>");
             out.println("</body>");
             out.println("</html>");

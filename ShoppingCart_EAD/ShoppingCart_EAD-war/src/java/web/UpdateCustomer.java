@@ -65,6 +65,7 @@ public class UpdateCustomer extends HttpServlet {
                 updatingCustomer = customer;
                 break;
             }
+
         }
 //        updatingCustomer=customerEntityFacade.findCust(id);
         if (updatingCustomer == null) {
@@ -124,7 +125,7 @@ public class UpdateCustomer extends HttpServlet {
                     + "p {font-family: \"Times New Roman\"; font-size: 20px; }"
                     + ".mytext { height: 30px;}"
                     + " </style> ");
-            out.println("<title>Servlet AddCustomer</title>");
+            out.println("<title>Update Customer</title>");
             out.println("</head>");
             out.println("<body>");
 //            out.println(name);
