@@ -20,11 +20,11 @@ import javax.persistence.Temporal;
 @Entity
 public class CustomerOrderEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
+    private static final long serialVersionUID = 1L;  
     
     @ManyToOne
     private CustomerEntity customer;
+    
     @Id
     private String OrderNo;
     @Temporal(javax.persistence.TemporalType.DATE)

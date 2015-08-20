@@ -38,8 +38,19 @@ public class Message implements MessageListener {
         try {
             if (message instanceof ObjectMessage) {
                 msg = (ObjectMessage) message;
-                CustomerEntity e = (CustomerEntity) msg.getObject();
-                save(e);
+                Object obj = (msg.getObject());
+                if (obj instanceof CustomerEntity) {
+                    CustomerEntity e = (CustomerEntity) msg.getObject();
+                    save(e);
+                }
+                if (obj instanceof CustomerOrderEntity) {
+                    CustomerOrderEntity e = (CustomerOrderEntity) msg.getObject();
+                    save(e);
+                }
+//                if (obj instanceof ) {
+//                    CustomerOrderEntity e = (CustomerOrderEntity) msg.getObject();
+//                    save(e);
+//                }
             }
         } catch (JMSException e) {
             e.printStackTrace();

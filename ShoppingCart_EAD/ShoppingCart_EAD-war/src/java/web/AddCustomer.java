@@ -5,9 +5,12 @@
 package web;
 
 import ejb.CustomerEntity;
+import ejb.CustomerEntityFacade;
+import ejb.SessionManagerBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
@@ -21,8 +24,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 /**
  *
  * @author Sanna
@@ -34,7 +35,11 @@ public class AddCustomer extends HttpServlet {
     private ConnectionFactory connectionFactory;
     @Resource(mappedName = "jms/Message")
     private Queue queue;
-//    String manage;
+    @EJB
+    private CustomerEntityFacade customerEntityFacade;
+//  @EJB
+//    private SessionManagerBean sessionManagerBean;
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -47,35 +52,39 @@ public class AddCustomer extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        request.getSession(true);
         response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String contact = request.getParameter("contact");
 //        manage=(String)request.getSession().getAttribute("manage");
-        if ((id != null) && (name != null) && (address != null) && (contact != null)) {
-            try {
-                Connection connection = connectionFactory.createConnection();
-                Session session = connection.createSession(false,
-                        Session.AUTO_ACKNOWLEDGE);
-                MessageProducer messageProducer =
-                        session.createProducer(queue);
+        if ((id != null) && (customerEntityFacade.findCust(id) == null)) {
+            if ( (name != null) && (address != null) && (contact != null)) {
+//                try {
+//                    Connection connection = connectionFactory.createConnection();
+//                    Session session = connection.createSession(false,
+//                            Session.AUTO_ACKNOWLEDGE);
+//                    MessageProducer messageProducer =
+//                            session.createProducer(queue);
+//
+//                    ObjectMessage message = session.createObjectMessage();
+                    // here we create NewsEntity, that will be sent in JMS message
+                    CustomerEntity e = new CustomerEntity();
+                    e.setCustomerId(id);
+                    e.setName(name);
+                    e.setAddress(address);
+                    e.setContact(contact);
+////                    message.setObject(e);
+////                    messageProducer.send(message);
+////                    messageProducer.close();
+////                    connection.close();
+                    customerEntityFacade.create(e);
+                    response.sendRedirect("ListCustomers");
 
-                ObjectMessage message = session.createObjectMessage();
-                // here we create NewsEntity, that will be sent in JMS message
-                CustomerEntity e = new CustomerEntity();
-                e.setCustomerId(id);
-                e.setName(name);
-                e.setAddress(address);
-                e.setContact(contact);
-                message.setObject(e);
-                messageProducer.send(message);
-                messageProducer.close();
-                connection.close();
-                response.sendRedirect("ListCustomers");
-
-            } catch (JMSException ex) {
-                ex.printStackTrace();
+//                } catch (JMSException ex) {
+//                    ex.printStackTrace();
+//                }
             }
         }
         PrintWriter out = response.getWriter();
