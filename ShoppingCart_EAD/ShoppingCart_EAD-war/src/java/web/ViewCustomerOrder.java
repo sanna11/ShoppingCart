@@ -113,16 +113,19 @@ public class ViewCustomerOrder extends HttpServlet {
             for (Iterator it = selectedOrderLines.iterator(); it.hasNext();) {
                 CustomerOrderLineEntity elem = (CustomerOrderLineEntity) it.next();
                 out.println("<tr>");
-                out.println("<td><a href=\"\">Update</a></td>");
-                out.println("<td><a href=\"\">Remove</a></td>");
+                out.println("<td><a href=\"/ShoppingCart_EAD-war/AddCustomerOrderLine?action=update order line&lineno="+elem.getLineNo()+"\">Update</a></td>");
+                out.println("<td><a href=\"/ShoppingCart_EAD-war/AddCustomerOrderLine?action=delete order line&lineno="+elem.getLineNo()+"\">Remove</a></td>");
+//                out.println("<td><a href=\"/ShoppingCart_EAD-war/UpdateCustomerOrder?orderno="+elem.getOrderNo()+"\">Update</a></td>");
+//                out.println("<td><a href=\"/ShoppingCart_EAD-war/ViewCustomerOrder?orderno="+elem.getOrderNo()+"\">"+elem.getOrderNo()+"</a></td>");
                 out.println("<td>"+elem.getLineNo()+"</td>");
                 out.println("<td>"+elem.getPartNo()+"</td>");
                 out.println("<td>"+String.valueOf(elem.getAmount()) +"</td>");
                
             }
             out.println("</table>");
-            out.println("<br><a href=''>Add new Customer Order Line</a>");
-
+            out.println("<br><a href=\"AddCustomerOrderLine?orderno="+orderNo+"\">Add new Customer Order Line</a>");
+            
+            out.println("<a href='ListCustomerOrders'>View Order Details</a>");
             out.println("<br>");
             out.println("</form>");
             out.println("</body>");

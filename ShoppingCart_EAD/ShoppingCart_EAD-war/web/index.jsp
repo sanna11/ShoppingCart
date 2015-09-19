@@ -9,9 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Shopping Cart</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+    <center><h1>Shopping Cart</h1></center>
+        <br> <br>
+        <a href='ListCustomers'>View Customer Details</a><br><br>
+    <a href='ListCustomerOrders'>View Order Details</a>
     </body>
 </html>

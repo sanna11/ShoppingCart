@@ -22,6 +22,7 @@ public class CustomerOrderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;  
     
+    
     @ManyToOne
     private CustomerEntity customer;
     

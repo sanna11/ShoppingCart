@@ -87,9 +87,9 @@ public class ListCustomers extends HttpServlet {
             }
             out.println("</table>");
             out.println("<br><a href='AddCustomer'>Add new Customer</a>");
-
+            out.println("<a href='/ShoppingCart_EAD-war'>HomePage</a>");
             out.println("<br>");
-            out.println(sessionManagerBean.getActiveSessionsCount() + " user(s) reading the news.");
+            
             out.println("</body>");
             out.println("</html>");
         } finally {

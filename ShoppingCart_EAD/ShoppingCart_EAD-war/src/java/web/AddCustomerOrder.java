@@ -10,17 +10,13 @@ import ejb.CustomerOrderEntity;
 import ejb.CustomerOrderEntityFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +38,7 @@ public class AddCustomerOrder extends HttpServlet {
     private ConnectionFactory connectionFactory;
     @Resource(mappedName = "jms/Message")
     private Queue queue;
-
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and

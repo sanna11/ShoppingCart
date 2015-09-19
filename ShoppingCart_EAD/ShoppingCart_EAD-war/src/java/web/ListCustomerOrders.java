@@ -9,6 +9,7 @@ import ejb.CustomerOrderEntity;
 import ejb.CustomerOrderEntityFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
@@ -27,6 +28,7 @@ public class ListCustomerOrders extends HttpServlet {
 
     @EJB
     private CustomerOrderEntityFacade customerOrderEntityFacade;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -74,14 +76,15 @@ public class ListCustomerOrders extends HttpServlet {
                 out.println("<td>"+elem.getCustomer().getCustomerId()+"</td>");
                 out.println("<td>"+elem.getCustomer().getName()+"</td>");
                 out.println("<td>"+elem.getPrice()+"</td>");
-                out.println("<td>"+elem.getDuedate().toString()+"</td>");
+                out.println("<td>"+dateFormat.format(elem.getDuedate())+"</td>");
                 out.println("<td>"+elem.getComment()+"</td>");
 ////                out.println(" <b>" + elem.getCustomerId() + " </b><br />");
 ////                out.println(elem.getName() + "<br /> ");
             }
             out.println("</table>");
             out.println("<br><a href='AddCustomerOrder'>Add new Customer Order</a>");
-
+            out.println("<a href='/ShoppingCart_EAD-war'>HomePage</a>");
+            
             out.println("<br>");
             
             out.println("</body>");
