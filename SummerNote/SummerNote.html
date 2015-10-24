@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Sample Summer Note</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+
+
+
+        <!-- include summernote css/js-->
+        <link rel="stylesheet" href="css/summernote.css" />
+        <script src="js/summernote.min.js"></script>
+        <script type="text/javascript" src='codebase/message.js'></script>
+        <link rel="stylesheet" type="text/css" href="codebase/themes/message_default.css">
+        <script>
+            $(document).ready(function () {
+                var msg;
+                $.ajax({
+                    url: "load.php",
+                    type: "POST",
+                    data: {
+                    },
+                    dataType: "json",
+                    success: function (msg) {
+                        console.log(msg);
+                        document.getElementById("description").value = msg;                        
+                        $('#description').summernote({
+                            height: 300
+                        });
+                    }
+                });
+            });
+
+            function SaveDetails() {
+                var value = document.getElementById("description").value.trim();
+                console.log(value);
+                console.log(value.trim().length);
+
+                $.ajax({
+                    url: "store.php",
+                    type: "POST",
+                    data: {
+                        message: value
+                    },
+                    dataType: "json",
+                    success: function (jsonStr) {
+
+                        var msg = (JSON.stringify(jsonStr));
+                        console.log(jsonStr);
+                        if (msg == "true") {
+                            $('textarea#description').val('abbcbbbc');
+                            dhtmlx.message("Message has been added...!");
+                        }
+                        else
+                        {
+                            dhtmlx.message({type: "error", text: "Error: " + msg});
+                        }
+                        $('#description').summernote({
+                            height: 300
+                        });
+
+                    }
+                });
+            }
+        </script>
+        <script>
+        </script>
+    </head>
+    <body >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="summernote">
+                        <form>
+                            <div class="form-group">
+                                <br>
+                                <label for="InputNumber" class="control-label">Summer Note</label>
+                                <br>
+                                <textarea class="form-control html" rows="10" name="result" id="description">        
+                                </textarea>
+                                <div class="form-group">
+
+                                    <input type="button" class="btn btn-default" onclick="SaveDetails();" id="findDuplicatesButton" value="Submit"/>
+
+                                </div>
+                            </div>
+                        </form>
+                        <div id="result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
